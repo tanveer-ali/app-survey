@@ -1,0 +1,20 @@
+<div *ngIf='surveyResponses'>
+<a class='btn btn-default' (click)='onBack()' style='width:80px'>
+                    <i class='glyphicon glyphicon-chevron-left'></i> Back
+                </a>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{pageTitle}}
+    </div>
+    <div class="panel-body">
+        <div class="row" style="border: 1px solid black" *ngFor="let surveyResponse of surveyResponses; let i = index">
+            <div class="col-md-6">
+                {{i+1}}. {{surveyResponse.questionLabel}}
+            </div>
+            <div class="col-md-5">                   
+                <canvas baseChart [data]="surveyResponse.counts" [labels]="surveyResponse.labels" [chartType]="doughnutChartType"></canvas>                   
+            </div>
+        </div>        
+    </div>
+</div>
+</div>

@@ -1,0 +1,46 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading' style='font-size:large'>
+        {{pageTitle}}
+    </div>
+    <div class='panel-body'>
+        <form (ngSubmit)="submitSurvey()" #surveyForm="ngForm">
+            <div class="form-group" *ngFor="let question of questions;let i = index">
+                <label [attr.for]="question.questionId">{{i+1}}. {{question.questionLabel}} <span class="required" *ngIf="question.required">* Required</span></label>                
+                
+                <div *ngIf="question.questionType.questionTypeCode == 'minmaxradio'">
+                    <span *ngFor="let questionOption of question.questionOptions; let j = index">
+                        <span *ngIf="j == 0">{{question.questionType.minLabel}}</span>                                                
+                        <input type="radio" [name]="question.questionId" [required]="question.required" [checked]="questionOption.selected" (change)="setRadioValue(question.questionId,$event.target.value)" value="{{questionOption.optionId}}"> {{questionOption.optionLabel}}                        
+                        <span *ngIf="j == question.questionOptions.length - 1">{{question.questionType.maxLabel}}</span>
+                        
+                    </span>
+                </div>
+                
+                <div *ngFor="let questionOption of question.questionOptions">                    
+                    <div *ngIf="question.questionType.questionTypeCode == 'radio'">
+                        <input type="radio" [name]="question.questionId" [required]="question.required" [checked]="questionOption.selected" (change)="setRadioValue(question.questionId,$event.target.value)"  value="{{questionOption.optionId}}"> {{questionOption.optionLabel}}                        
+                    </div>
+                    <div *ngIf="question.questionType.questionTypeCode == 'checkbox'">
+                        <input type="checkbox" [name]="questionOption.optionId" [(ngModel)]="questionOption.selected" value="{{questionOption.optionId}}"> {{questionOption.optionLabel}}                        
+                    </div>                    
+                </div>
+                <div *ngIf="question.questionType.questionTypeCode == 'text'">
+                        <textarea  [name]="question.questionId" [required]="question.required" [(ngModel)]="question.answer" value="{{question.answer}}" cols="70" rows="5"></textarea>
+                    </div>
+                   
+                </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!surveyForm.form.valid">Submit</button>
+            <button type="button" class="btn btn-default" (click)="surveyForm.reset()">Clear</button>
+        </form>
+        
+            </div>        
+
+            <div class='panel-footer'>
+                <a class='btn btn-default' (click)='onBack()' style='width:80px'>
+                    <i class='glyphicon glyphicon-chevron-left'></i> Back
+                </a>
+            </div>
+    </div>
+
+<ng2-toasty [position]="'top-center'"></ng2-toasty>

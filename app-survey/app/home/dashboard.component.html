@@ -1,0 +1,16 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{pageTitle}}
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4" *ngIf='surveyResponse'>                   
+                <canvas baseChart [data]="surveyResponse.counts" [labels]="surveyResponse.labels" [chartType]="doughnutChartType" (chartClick)="chartClicked($event)"></canvas>                   
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">Developed by:</div>
+            <h5 class="text-center">Tanveer Ali</h5>
+        </div>
+    </div>
+</div>

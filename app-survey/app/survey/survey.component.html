@@ -1,0 +1,17 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{pageTitle}}
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">
+                <h4>Select Survey</h4>
+            </div>
+        </div>
+        <div class="list-group" *ngFor="let survey of surveys">
+            <a class="list-group-item" [routerLink]="['/questions', survey.surveyId, survey.name]">
+        {{survey.name}}
+    </a>
+        </div>
+    </div>
+</div>
